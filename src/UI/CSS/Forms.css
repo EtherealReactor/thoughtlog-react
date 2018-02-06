@@ -1,0 +1,53 @@
+.formContainer {
+  display: inline-block;
+  text-align: left;
+  width: 30%;
+  margin: 2rem 0 5rem 0;
+  padding: 2rem;
+  box-shadow: 0 0 2rem #bababa;
+  border-radius: 1rem;
+}
+
+.formHeading {
+  color: #68308C;
+  margin-bottom: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel, .formInput {
+  display: block;
+  color: #895EA8;
+  font-size: .8rem;
+  margin-bottom: 0.4rem;
+}
+
+.formInput {
+  width: 90%;
+  height: 2rem;
+  border-radius: 5px;
+  color: black;
+  outline: none;
+  padding-left: 10px;
+  border: 1px solid grey;
+}
+
+.formButton:disabled {
+  color: #bababa;
+}
+
+.formButton {
+  padding: .5rem .7rem;
+  border-radius: 10px;
+  font-size: .8rem;
+  margin: 1rem 1rem 0 0;
+  background: #895EA8;
+  color: #fff;
+}
+
+.fieldRequired {
+  color: red;
+  font-size: 0.8rem;
+}
