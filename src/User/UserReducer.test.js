@@ -18,6 +18,7 @@ describe('UserReducer Related Tests', () => {
     let errors = [{password: 'invalid'}]
     let initialState = { token: '', errors: [] }
     let finalState = {token: '', errors: errors}
-    expect(reducer(initialState, { type: actionTypes.USER_SIGNUP_FAILED, errors: errors})).toEqual(finalState);
+    let state = reducer(initialState, { type: actionTypes.USER_SIGNUP_FAILED, errors: errors});
+    expect(state).toEqual(finalState);
   });
 });

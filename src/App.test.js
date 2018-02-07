@@ -1,9 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+
+describe("Component === App", () => {
+  it("should match snapshot", () => {
+    let wrapper = shallow(<App />);
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
+
+  it("must contain a div", () => {
+    let wrapper = shallow(<App />);
+    expect(wrapper.find('div')).toHaveLength(1);
+  });
+
+  it("must contain a welcome component", () => {
+    let wrapper = shallow(<App />);
+    expect(wrapper.find('Welcome')).toHaveLength(1);
+  });
 });

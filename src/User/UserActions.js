@@ -21,5 +21,8 @@ export const signupInit = () => {
 };
 
 export const signup = (data) => {
-  console.log('coming');
+  console.log('coming', data);
+  return (dispatch) => {
+    dispatch(signupInit())
+  }
 } 

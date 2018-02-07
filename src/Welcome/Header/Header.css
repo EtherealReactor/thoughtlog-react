@@ -39,16 +39,3 @@
     float: left;
     margin-left: 1.5rem;
 }
-
-
-.navigation__link:link,
-.navigation__link:visited {
-    text-decoration: none;
-    font-size: 1.2rem;
-    color: #BABABA;
-}
-
-.navigation__link:hover,
-.navigation__link:active {
-    color: #895EA8;
-}
