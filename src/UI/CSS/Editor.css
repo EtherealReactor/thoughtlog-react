@@ -1,0 +1,29 @@
+.Root {
+  font-size: 1rem;
+  width: 70%;
+  margin: 7rem auto;
+  padding: 1rem 2rem;
+  cursor: text;
+  background: #fefefe;
+}
+
+.Title {
+  display: block;
+  border: none;
+  width: 100%;
+  outline: none;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  padding: 1rem;
+  border-left:  5px solid #8B5FA3;
+}
+
+.Editor {
+  box-shadow: 0px 0px 4px #8B5FA3;
+  border-left:  5px solid #8B5FA3;
+  cursor: text;
+  min-height: 8rem;
+  padding: 1rem;
+  color: #757575;
+  font-size: 1.2rem;
+}

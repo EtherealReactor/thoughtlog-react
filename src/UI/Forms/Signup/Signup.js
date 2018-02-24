@@ -7,8 +7,8 @@ import SignupStyles from './Signup.css';
 const validate = (values) => {
   let errors = {}
   
-  if(!values.name) {
-    errors.name = 'Required'
+  if(!values.username) {
+    errors.username = 'Required'
   }
   
   if(!values.email) {
@@ -43,7 +43,7 @@ const SignupForm = props => {
       <div className={Styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <Field 
-            name="name"
+            name="username"
             type="input"
             placeholder=""
             label="Enter your name"

@@ -1,0 +1,23 @@
+.container {
+    position: absolute;
+    top: 8rem;
+    right: 5rem;
+    /* border: 1px solid #6C3582; */
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    min-width: 10rem;
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+    background: #73F490;
+    -webkit-animation: fadein 0.8s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 0.8s; /* Firefox < 16 */
+        -ms-animation: fadein 0.8s; /* Internet Explorer */
+         -o-animation: fadein 0.8s; /* Opera < 12.1 */
+            animation: fadein 0.8s;
+}
+
+@keyframes fadein {
+    from { right: -5rem; }
+    to   { right: 5rem; }
+}

@@ -1,0 +1,12 @@
+.header {
+  composes: header from '../../Welcome/Header/Header.css';
+  min-width: 100%;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  background-color: #6A3387;
+}
+
+.header__logo span{
+  color: #A0A3A5;
+}

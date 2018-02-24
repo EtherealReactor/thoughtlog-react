@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import Notification from './Notifications/Notification';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import Welcome from './Welcome/Welcome';
-import Styles from './App.css';
+import Thoughts from './Thoughts/Thoughts';
+
+// <Notification message={this.props.message} />
 
 
 class App extends Component {
   render() {
     return (
-      <div className={Styles.App}>
-        <Welcome />
-      </div>
+      <React.Fragment>
+        <Switch>
+          <ProtectedRoute path="/thoughts" component={Thoughts} />
+          <Route path='/' render={(props) => ( <Welcome {...props} />)} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    message: state.notifications.message
+  }
+}
+
+export default withRouter(connect(mapStateToProps, null)(App));

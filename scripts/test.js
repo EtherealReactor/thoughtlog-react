@@ -9,8 +9,15 @@ process.env.PUBLIC_URL = '';
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
 process.on('unhandledRejection', err => {
+  console.log('err', err);
   throw err;
 });
+
+// process.on('unhandledRejection', (reason, p) => {
+//   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+//   // throw reason;
+//   // application specific logging, throwing an error, or other logic here
+// });
 
 // Ensure environment variables are read.
 require('../config/env');

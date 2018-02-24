@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component === Thoughts === Header must match snapshot 1`] = `
+<div>
+  <header>
+    <div>
+      <div>
+        <h1>
+          <span>
+            Thought
+          </span>
+          <span>
+            Log
+          </span>
+        </h1>
+      </div>
+    </div>
+  </header>
+</div>
+`;

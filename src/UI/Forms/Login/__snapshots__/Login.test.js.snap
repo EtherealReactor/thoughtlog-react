@@ -17,5 +17,6 @@ exports[`<LoginForm /> must render LoginForm 1`] = `
   touchOnBlur={true}
   touchOnChange={false}
   updateUnregisteredFields={false}
+  validate={[Function]}
 />
 `;

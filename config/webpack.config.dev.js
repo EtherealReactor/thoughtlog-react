@@ -123,6 +123,12 @@ module.exports = {
         include: paths.appSrc,
       },
       {
+        test: /\.(png|jpg|svg)$/,
+        use: {
+          loader: "file-loader",
+        },
+      },
+      {
         // "oneOf" will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
@@ -150,6 +156,13 @@ module.exports = {
               // directory for faster rebuilds.
               cacheDirectory: true,
             },
+          },
+          {
+            test: /plugin\.css$/,
+            use: [
+              { loader: require.resolve('style-loader') },
+              { loader: require.resolve('css-loader') }
+            ]
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.

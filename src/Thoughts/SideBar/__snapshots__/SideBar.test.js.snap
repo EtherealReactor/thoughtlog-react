@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component === Thoughts === Sidebar must match snapshot 1`] = `
+<aside>
+  <nav>
+    <ul>
+      <li>
+        <Link
+          replace={false}
+          to="#"
+        >
+          Quick Thought
+          <FaPlusSquareO />
+        </Link>
+      </li>
+      <li>
+        <Link
+          replace={false}
+          to="/thoughts/drafts"
+        >
+          Saved Thought
+          <FaArrowDown />
+        </Link>
+      </li>
+    </ul>
+  </nav>
+</aside>
+`;

@@ -1,0 +1,15 @@
+.Container {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 10rem;
+}
+
+.List {
+  list-style-type: none;
+  padding: 0;
+}
+
+.EmtpyState {
+  font-size: 1.5rem;
+  color: #6A3387;
+}

@@ -51,3 +51,7 @@
   color: red;
   font-size: 0.8rem;
 }
+
+.align-left {
+  text-align: left;
+}

@@ -15,8 +15,8 @@ describe("Component === App", () => {
     expect(wrapper.find('div')).toHaveLength(1);
   });
 
-  it("must contain a welcome component", () => {
+  it("must contain have 2 routes", () => {
     let wrapper = shallow(<App />);
-    expect(wrapper.find('Welcome')).toHaveLength(1);
+    expect(wrapper.find('Route')).toHaveLength(2);
   });
 });

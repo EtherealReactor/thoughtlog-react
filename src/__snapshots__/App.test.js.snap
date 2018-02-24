@@ -2,6 +2,15 @@
 
 exports[`Component === App should match snapshot 1`] = `
 <div>
-  <Welcome />
+  <Switch>
+    <Route
+      path="/thoughts"
+      render={[Function]}
+    />
+    <Route
+      path="/"
+      render={[Function]}
+    />
+  </Switch>
 </div>
 `;

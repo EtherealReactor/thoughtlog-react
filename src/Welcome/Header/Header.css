@@ -1,4 +1,38 @@
 .header {
+  display: flex;
+  justify-content: space-around;
+  -ms-align-items: center;
+  align-items: center;
+  box-shadow: 0 0px 1rem grey;
+  height: 7rem;;
+}
+
+.header__logo {
+    color: #68308C;
+}
+
+.header__logo span:last-child {
+    color: #895EA8;
+}
+
+.header__nav {
+  width: 15%;
+}
+
+.header__list {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  justify-content: space-evenly;
+}
+
+/* .headerContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header {
     height: 7rem;
     box-shadow: 0 0px 1rem grey;
 }
@@ -38,4 +72,4 @@
 .navigation__item {
     float: left;
     margin-left: 1.5rem;
-}
+} */
