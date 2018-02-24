@@ -11,27 +11,35 @@ import createSagaMiddleware from 'redux-saga'
 import IndexSagas from './IndexSagas';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
-import {reducer as notifications} from 'react-notification-system-redux';
 
 import signinReducer from './User/Signin/SigninReducer';
 import signupReducer from './User/Signup/SignupReducer';
-import newThoughtReducer from './Thoughts/NewThought/NewThoughtReducer';
-import thoughtListReducer from './Thoughts/ThoughtList/ThoughtListReducer';
-import fetchThoughReducer from './Thoughts/ShowThought/ShowThoughtReducer';
-import editThoughtReducer from './Thoughts/EditThought/EditThoughtReducer';
-import notificationReducer from './Notifications/NotificationReducer';
+import thoughtsReducer from './Thoughts/ThoughtReducer';
+// import newThoughtReducer from './Thoughts/NewThought/NewThoughtReducer';
+// import thoughtListReducer from './Thoughts/ThoughtList/ThoughtListReducer';
+// import fetchThoughReducer from './Thoughts/ShowThought/ShowThoughtReducer';
+// import editThoughtReducer from './Thoughts/EditThought/EditThoughtReducer';
+// import deleteThoughtReducer from './Thoughts/DeleteThought/DeleteThoughtReducer';
 
 const history = createHistory();
 
+// const rootReducer = combineReducers({
+//   form: formReducer,
+//   signup: signupReducer,
+//   signin: signinReducer,
+//   newThought: newThoughtReducer,
+//   listThoughts: thoughtListReducer,
+//   currentThought: fetchThoughReducer,
+//   editedThought: editThoughtReducer,
+//   deleteThought: deleteThoughtReducer,
+//   router: routerReducer
+// });
+
 const rootReducer = combineReducers({
   form: formReducer,
-  notifications: notificationReducer,
   signup: signupReducer,
   signin: signinReducer,
-  newThought: newThoughtReducer,
-  listThoughts: thoughtListReducer,
-  currentThought: fetchThoughReducer,
-  editedThought: editThoughtReducer,
+  entities: thoughtsReducer,
   router: routerReducer
 });
 

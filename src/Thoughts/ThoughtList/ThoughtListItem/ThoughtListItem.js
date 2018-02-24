@@ -42,11 +42,12 @@ class ThoughtListItem extends React.Component {
               editorState={this.state.editorState}
               onChange={this.onChange}
               plugins={plugins}
+              readOnly={true}
             />
           </div>
           <div className={Styles.Actions}>
             <FontAwesome.FaPencil className={Styles.ActionIcon} onClick={this.props.onEditClick}/>
-            <FontAwesome.FaTrash className={Styles.ActionIcon} />
+            <FontAwesome.FaTrash className={Styles.ActionIcon} onClick={this.props.onDeleteClick}/>
           </div>
         </div>
       </li>

@@ -52,7 +52,7 @@ class EditThought extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
   };
-  
+
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem('token'));
     axios.get(`/thought/${this.props.match.params.id}`)
@@ -65,17 +65,17 @@ class EditThought extends Component {
       .catch((err) => {
       })
   }
-  
+
   onChange = (editorState) => {
     this.setState({editorState})
   }
-  
+
   handleTitleChange = (e) => {
     if(e.target.value.length > 0) {
       this.setState({title: e.target.value})
     }
   }
-  
+
   handleKeyCommand(command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -84,7 +84,7 @@ class EditThought extends Component {
     };
     return 'not-handled';
   };
-  
+
   saveThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
     event.preventDefault();
@@ -92,11 +92,12 @@ class EditThought extends Component {
       title: this.state.title,
       description: description,
       status: 'published',
-      category: 'self'
+      category: 'self',
+      location: '/thoughts'
     }
     this.props.editThoughtInit(this.state.id, params)
   };
-  
+
   draftThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
     event.preventDefault();
@@ -104,15 +105,16 @@ class EditThought extends Component {
       title: this.state.title,
       description: description,
       status: 'drafted',
-      category: 'self'
+      category: 'self',
+      location: '/thoughts/drafts'
     }
     this.props.editThoughtInit(this.state.id, params)
   };
-  
+
   focus = () => {
     this.editor.focus();
   };
-    
+
   render() {
     return (
       <div className={EditorStyles.Root} >
@@ -146,7 +148,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     editThoughtInit: (id, params) => dispatch(editThoughtInit(id, params))
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
-import Notification from './Notifications/Notification';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -26,8 +25,9 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    message: state.notifications.message
+    // message: state.notifications.message
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(App));
+// export default withRouter(connect(mapStateToProps, null)(App));
+export default App;

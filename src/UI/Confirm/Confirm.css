@@ -1,0 +1,32 @@
+.Container {
+  text-align: center;
+  width: 40%;
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: 0 0 6px orangered;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  z-index: 99;
+  border-radius: 5px;
+}
+
+.Text {
+  font-size: 1.7rem;
+  color: purple;
+}
+
+.Actions {
+  margin-top: 1rem;
+}
+
+.Actions button {
+  border: 1px solid purple;
+  background: #fff;
+  padding: .5rem;
+  border-radius: 5px;
+  margin-left: 1rem;
+  font-weight: 700;
+}

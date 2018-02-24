@@ -4,79 +4,47 @@ import ThoughtListItem from './ThoughtList/ThoughtListItem/ThoughtListItem';
 import { thoughtListFetchInit } from './ThoughtList/ThoughtListActions';
 import { connect } from 'react-redux';
 import Loader from '../UI/Loader/Loader';
+import { withRouter } from 'react-router-dom';
+import Confirm from '../UI/Confirm/Confirm';
+import { deleteThoughtInit, deleteThoughtCancel, deleteThoughtConfirm } from './DeleteThought/DeleteThoughtAction';
 
-// class AllThoughts extends React.Component {
-//   componentWillMount() {
-//     console.log('coming=====', this.props.status);
-//     this.props.fetchThoughtsList(this.props.status);
-//   }
-// 
-//   // handleThoughtClick = (id) => {
-//   //   this.props.history.push(`/thoughts/${id}`);
-//   // }
-// 
-//   render() {
-//     if(this.props.thoughtList.loading) {
-//       return <Loader />
-//     }
-// 
-//     let thoughts = ''
-//     if (this.props.thoughtList.thoughtsList.length > 0 ) {
-//       thoughts = this.props.thoughtList.thoughtsList.map((thought) => {
-//         return <ThoughtListItem thought={thought} key={thought._id} handleThoughtClick={this.handleThoughtClick.bind(this, thought._id)}/>
-//       });
-//     } else {
-//       thoughts = (
-//         <p className={Styles.EmtpyState}>Looks like you don't have any thoughts logged. Please click on the <strong>Quick Thought</strong> in the sidebar to create one &#128516;</p>
-//       )
-//     }
-// 
-//     return (
-//       <div className={Styles.Container}>
-//         <ul className={Styles.List}>
-//           {thoughts}
-//         </ul>
-//       </div>
-//     );
-//   };
-// };
-// 
-// const mapStateToProps = (state) => {
-//   return {
-//     thoughtList: state.listThoughts
-//   }
-// }
-// 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     fetchThoughtsList: (status) => dispatch(thoughtListFetchInit(status))
-//   }
-// }
-// 
-// export default connect(mapStateToProps, mapDispatchToProps)(AllThoughts);
-
-
-function ThoughtHOC(status) {
-  console.log('coming');
-  class AllThoughts extends React.Component {
-    componentWillMount() {
-      console.log('coming=====', status);
-      this.props.fetchThoughtsList(status);
+const ThoughtListHoc = (props) => {
+  class ThoughtList extends React.Component {
+    componentDidMount() {
+      this.props.fetchThoughtsList(props.status);
     }
 
-    // handleThoughtClick = (id) => {
-    //   this.props.history.push(`/thoughts/${id}`);
-    // }
+    handleEdit = (id) => {
+      this.props.history.push(`/thoughts/${id}/edit`)
+    }
+    
+    handleDelete = (id) => {
+      this.props.deleteThoughtInit(id)
+    }
+    
+    handleConfirm = () => {
+      let id = this.props.entities.current_thought_id;
+      console.log('id', id);
+      this.props.deleteThoughtConfirm(id);
+    }
+    
+    handleCancel = () => {
+      this.props.deleteThoughtCancel()
+    }
 
     render() {
-      if(this.props.thoughtList.loading) {
+      if(this.props.entities.loading) {
         return <Loader />
       }
 
       let thoughts = ''
-      if (this.props.thoughtList.thoughtsList.length > 0 ) {
-        thoughts = this.props.thoughtList.thoughtsList.map((thought) => {
-          return <ThoughtListItem thought={thought} key={thought._id} handleThoughtClick={this.handleThoughtClick.bind(this, thought._id)}/>
+      if (this.props.entities.thoughts.length > 0 ) {
+        thoughts = this.props.entities.thoughts.map((thought) => {
+          return  <ThoughtListItem 
+                    thought={thought}
+                    key={thought._id}
+                    onEditClick={this.handleEdit.bind(this, thought._id)}
+                    onDeleteClick={this.handleDelete.bind(this, thought._id)}/>
         });
       } else {
         thoughts = (
@@ -85,10 +53,18 @@ function ThoughtHOC(status) {
       }
 
       return (
-        <div className={Styles.Container}>
-          <ul className={Styles.List}>
-            {thoughts}
-          </ul>
+        <div>
+          { this.props.entities.show_confirm &&
+            <div className={Styles.Confirm} >
+              <Confirm handleConfirm={this.handleConfirm} handleCancel={this.handleCancel} />
+            </div>
+          }
+    
+          <div className={Styles.Container} ref={node => { this.node = node }}>
+            <ul className={Styles.List}>
+              {thoughts}
+            </ul>
+          </div>
         </div>
       );
     };
@@ -96,17 +72,20 @@ function ThoughtHOC(status) {
 
   const mapStateToProps = (state) => {
     return {
-      thoughtList: state.listThoughts
+      entities: state.entities
     }
   }
 
   const mapDispatchToProps = (dispatch) => {
     return {
-      fetchThoughtsList: (status) => dispatch(thoughtListFetchInit(status))
+      fetchThoughtsList: (status) => dispatch(thoughtListFetchInit(status)),
+      deleteThoughtCancel: () => dispatch(deleteThoughtCancel()),
+      deleteThoughtInit: (id) => dispatch(deleteThoughtInit(id)),
+      deleteThoughtConfirm: (id) => dispatch(deleteThoughtConfirm(id))
     }
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(AllThoughts);
+  return withRouter(connect(mapStateToProps, mapDispatchToProps)(ThoughtList));
 }
 
-export default ThoughtHOC;
+export default ThoughtListHoc;

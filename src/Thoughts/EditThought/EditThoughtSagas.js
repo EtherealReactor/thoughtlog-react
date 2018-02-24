@@ -10,11 +10,14 @@ function editThought(token, id, params) {
 }
 
 function *editThoughtWorker(action) {
+  console.log('location', action.params.location);
+  let location = action.params.location !== undefined ? action.params.location : '/thoughts'
+  console.log('location', action.params.location);
   let token = JSON.parse(localStorage.getItem('token'));
   try {
      let res = yield call(editThought, token, action.id, action.params);
      yield put(actions.editThoughtSuccess(res.data))
-     yield put(push('/thoughts'));
+     yield put(push(location));
   } catch (e) {
     yield put(actions.editThoughtFailed(e.response.data))
   }

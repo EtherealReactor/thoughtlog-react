@@ -10,6 +10,7 @@ export const thoughtListFetchSuccess = (data) => {
 };
 
 export const thoughtListFetchFailed = (errors) => {
+  console.log('errors', errors);
   return {
     type: actionTypes.THOUGHT_LIST_FETCH_FAILED,
     errors
@@ -17,7 +18,6 @@ export const thoughtListFetchFailed = (errors) => {
 };
 
 export const thoughtListFetchInit = (status) => {
-console.log('coming to thoughtlist acton ', status);
   return {
     type: actionTypes.THOUGHT_LIST_FETCH_INIT,
     status

@@ -5,6 +5,7 @@ import newThoughtSaga from './Thoughts/NewThought/NewThoughtSagas';
 import editThoughtSaga from './Thoughts/EditThought/EditThoughtSagas';
 import listThoughtsSaga from './Thoughts/ThoughtList/ThoughtListSagas';
 import fetchThoughtSaga from './Thoughts/ShowThought/ShowThoughtSagas';
+import deleteThoughtSaga from './Thoughts/DeleteThought/DeleteThoughtSagas';
 
 export default function* IndexSaga () {  
     yield all([
@@ -13,6 +14,7 @@ export default function* IndexSaga () {
       newThoughtSaga(),
       editThoughtSaga(),
       listThoughtsSaga(),
-      fetchThoughtSaga()
+      fetchThoughtSaga(),
+      deleteThoughtSaga()
     ])
   }

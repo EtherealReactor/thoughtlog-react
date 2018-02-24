@@ -24,3 +24,11 @@
   color: #68308C !important;
   font-weight: bold;
 }
+
+.WelcomeText {
+  width: 65%;
+  margin: 6rem auto;
+  line-height: 1.5;
+  font-size: 2rem;
+  color: #895EA8;
+}

@@ -11,7 +11,7 @@ class ProtectedRoute extends React.Component {
       success: null,
     };
   }
-  
+
   componentDidMount() {
     let token = JSON.parse(localStorage.getItem('token'));
     axios.defaults.headers.common['Authorization'] = token;
@@ -23,7 +23,7 @@ class ProtectedRoute extends React.Component {
         this.setState({ requested: false, success: false });
       })
   }
-    
+
   render() {
     const { success, requested } = this.state;
     const Component = this.props.component;
@@ -32,7 +32,7 @@ class ProtectedRoute extends React.Component {
     if(requested) {
       return null;
     }
-    
+
     if(success) {
       return <Route {...this.props} render={(rest) => (<Component {...rest} />)} />
     }

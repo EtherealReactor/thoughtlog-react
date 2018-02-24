@@ -41,12 +41,12 @@ function strategy(contentBlock, callback) {
 
 
 class ShowThought extends React.Component {
-  
+
   constructor(props) {
     super(props)
     this.state = { editorState: EditorState.createEmpty() };
   };
-  
+
   componentDidMount() {
     let id = this.props.match.params.id;
     this.props.fetchThoughtInit(id);
@@ -55,7 +55,7 @@ class ShowThought extends React.Component {
   componentWillReceiveProps(nextProps) {
     let description = nextProps.thought.fetchedThought.description;
     let loading = nextProps.thought.loading;
-  
+
     if(!loading) {
       let editorState = description !== undefined ?
         EditorState.createWithContent(convertFromRaw(JSON.parse(description))) :
@@ -63,7 +63,7 @@ class ShowThought extends React.Component {
       this.setState({ editorState })
     }
   }
-  
+
   shouldComponentUpdate(nextProps, nextState) {
     return this.state.editorState !== nextState.editorState
   }
@@ -71,14 +71,14 @@ class ShowThought extends React.Component {
   onChange = (editorState) => {
     this.setState({editorState})
   }
-  
+
   render() {
     let loading = this.props.thought.loading;
-    
+
     if(loading) {
       return <Loader />
     }
-    
+
     return (
       <div className={Styles.container}>
         <Editor

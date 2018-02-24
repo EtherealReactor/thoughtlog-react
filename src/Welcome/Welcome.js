@@ -7,6 +7,7 @@ import LoginForm from '../UI/Forms/Login/Login';
 import SignupForm from '../UI/Forms/Signup/Signup';
 import { signup } from '../User/Signup/SignupActions';
 import { signin } from '../User/Signin/SigninActions';
+import Styles from '../UI/CSS/Typography.css';
 
 export class Welcome extends React.Component {
   constructor(props) {
@@ -32,9 +33,12 @@ export class Welcome extends React.Component {
     return (
       <React.Fragment>
         <Header />
+        <p className={Styles.WelcomeText}>
+        </p>
         <Switch>
           <Route path='/sign_in' render={(props) => (<LoginForm {...props} onSubmit={this.handleSignin} />)} />
           <Route path='/sign_up' render={(props) => (<SignupForm {...props} onSubmit={this.handleSignup} />)} />
+          <Route path='/' render={() => <p className={Styles.WelcomeText}>Thoughtlog is an aggregation of daily thoughts which will help you capture critical snippets of information which you come across on daily basis that can help you transform yourself in your internal and external journey.</p>} />
         </Switch>
       </React.Fragment>
     );

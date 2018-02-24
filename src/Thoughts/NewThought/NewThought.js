@@ -53,21 +53,21 @@ class NewThought extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
   };
-  
+
   onChange = (editorState) => {
     this.setState({editorState})
   }
-  
+
   focus = () => {
     this.editor.focus();
   };
-  
+
   handleTitleChange = (e) => {
     if(e.target.value.length > 0) {
       this.setState({title: e.target.value})
     }
   }
-  
+
   handleKeyCommand(command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -76,7 +76,7 @@ class NewThought extends Component {
     };
     return 'not-handled';
   };
-  
+
   saveThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
     event.preventDefault();
@@ -88,7 +88,7 @@ class NewThought extends Component {
     }
     this.props.thoughtInit(params)
   };
-  
+
   draftThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
     event.preventDefault();
@@ -100,7 +100,7 @@ class NewThought extends Component {
     }
     this.props.thoughtInit(params)
   };
-    
+
   render() {
     return (
       <div className={EditorStyles.Root} >

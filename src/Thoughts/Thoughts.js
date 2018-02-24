@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import {newThoughtInit} from './NewThought/NewThoughtActions';
 
 import Header from './Header/Header';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AllThoughts from '../Thoughts/ThoughtList/ThoughtList';
 import NewThought from '../Thoughts/NewThought/NewThought';
 import DraftThoughts from './DraftThoughts/DraftThoughts';
 import EditThought from './EditThought/EditThought';
-// import ShowThought from './ShowThought/ShowThought';
 
 class Thoughts extends React.Component {
   constructor() {
@@ -25,9 +25,9 @@ class Thoughts extends React.Component {
       <React.Fragment>
         <Header handleNewClick={this.handleNewClick}/>
         <Switch>
-          <Route path="/thoughts/:id/edit" component={EditThought} />
-          <Route path="/thoughts/new" component={NewThought} />
-          <Route path="/thoughts/drafts" render={() => (<DraftThoughts />)} />
+          <ProtectedRoute path="/thoughts/:id/edit" component={EditThought} />
+          <ProtectedRoute path="/thoughts/new" component={NewThought} />
+          <ProtectedRoute path="/thoughts/drafts" component={DraftThoughts} />
           <Route exact path="/thoughts" render={() => (<AllThoughts status='published'/>)} />          
         </Switch>
       </React.Fragment>
