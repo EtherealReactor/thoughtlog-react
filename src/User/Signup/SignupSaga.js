@@ -4,6 +4,7 @@ import { SubmissionError } from 'redux-form';
 import * as actions from './SignupActions';
 import * as actionTypes from '../UserActionTypes';
 import { push } from 'react-router-redux';
+import { notificationSuccess } from '../../Notifications/NotificationActions';
 
 
 function signup(params) {
@@ -20,6 +21,7 @@ function* signupWorker({username, email, password, resolve, reject}) {
      const token = yield call(signup, params)
      yield put(actions.signupSuccess(token));
      localStorage.setItem('token', JSON.stringify(token));
+     yield put(notificationSuccess('Signed up Succesfully.'));
      yield put(push('/thoughts'));
    } catch (errors) {
      yield put(actions.signupFailed(errors));

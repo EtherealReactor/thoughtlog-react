@@ -21,7 +21,7 @@ function *newThoughtWorker(action) {
     yield put(actions.newThoughtSuccess(thought))
     yield put(push('/thoughts'))
   } catch (e) {
-    // yield put(actions.newThoughtFailed(e))
+    yield put(actions.newThoughtFailed(e))
   }
 }
 

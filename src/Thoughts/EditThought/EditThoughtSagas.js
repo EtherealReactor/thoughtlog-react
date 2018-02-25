@@ -3,6 +3,7 @@ import * as actionTypes from '../ThoughtActionTypes';
 import * as actions from './EditThoughtActions';
 import axios from '../../AxiosGlobal';
 import { push } from 'react-router-redux';
+import { notificationSuccess } from '../../Notifications/NotificationActions';
 
 function editThought(token, id, params) {
   axios.defaults.headers.common['Authorization'] = token;
@@ -18,6 +19,7 @@ function *editThoughtWorker(action) {
      let res = yield call(editThought, token, action.id, action.params);
      yield put(actions.editThoughtSuccess(res.data))
      yield put(push(location));
+     yield put(notificationSuccess('Edit thought succesful'));
   } catch (e) {
     yield put(actions.editThoughtFailed(e.response.data))
   }

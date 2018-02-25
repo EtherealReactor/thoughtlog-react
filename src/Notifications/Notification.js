@@ -1,9 +1,15 @@
 import React from 'react';
 import Styles from './Notification.css';
+import * as FontAwesome from 'react-icons/lib/fa';
 
-const Notification = ({message}) => {
+
+const Notification = ({message, handleClose}) => {
     return ( 
-        message.length > 0 && <h1 className={Styles.container}>{message}</h1>
+        message && 
+        <div className={Styles.container}>
+          <FontAwesome.FaTimesCircle className={Styles.close} onClick={handleClose}/>
+          <p>{message}</p>
+        </div>
     )
 }
 

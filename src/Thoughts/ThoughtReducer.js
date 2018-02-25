@@ -67,7 +67,7 @@ const thoughtsReducer = (state=initialState, action) => {
         return {
           ...state,
           messages: [...state.messages, newSuccessMessage],
-          thoughts: state.thought.concat(action.thoughts),
+          thoughts: state.thoughts.concat(action.thought),
           success: true,
           loading: false,
         }

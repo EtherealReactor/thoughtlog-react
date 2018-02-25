@@ -15,31 +15,17 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import signinReducer from './User/Signin/SigninReducer';
 import signupReducer from './User/Signup/SignupReducer';
 import thoughtsReducer from './Thoughts/ThoughtReducer';
-// import newThoughtReducer from './Thoughts/NewThought/NewThoughtReducer';
-// import thoughtListReducer from './Thoughts/ThoughtList/ThoughtListReducer';
-// import fetchThoughReducer from './Thoughts/ShowThought/ShowThoughtReducer';
-// import editThoughtReducer from './Thoughts/EditThought/EditThoughtReducer';
-// import deleteThoughtReducer from './Thoughts/DeleteThought/DeleteThoughtReducer';
+import notificationReducer from './Notifications/NotificationReducer';
 
 const history = createHistory();
 
-// const rootReducer = combineReducers({
-//   form: formReducer,
-//   signup: signupReducer,
-//   signin: signinReducer,
-//   newThought: newThoughtReducer,
-//   listThoughts: thoughtListReducer,
-//   currentThought: fetchThoughReducer,
-//   editedThought: editThoughtReducer,
-//   deleteThought: deleteThoughtReducer,
-//   router: routerReducer
-// });
 
 const rootReducer = combineReducers({
   form: formReducer,
   signup: signupReducer,
   signin: signinReducer,
   entities: thoughtsReducer,
+  notification: notificationReducer,
   router: routerReducer
 });
 
