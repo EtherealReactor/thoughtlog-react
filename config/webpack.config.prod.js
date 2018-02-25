@@ -153,6 +153,13 @@ module.exports = {
               compact: true,
             },
           },
+          {
+            test: /plugin\.css$/,
+            use: [
+              { loader: require.resolve('style-loader') },
+              { loader: require.resolve('css-loader') }
+            ]
+          },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -181,6 +188,7 @@ module.exports = {
                       loader: require.resolve('css-loader'),
                       options: {
                         importLoaders: 1,
+                        modules: true,
                         minimize: true,
                         sourceMap: shouldUseSourceMap,
                       },
