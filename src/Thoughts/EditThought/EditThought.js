@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { editThoughtInit } from './EditThoughtActions';
 import FormStyles from '../../UI/CSS/Forms.css';
 import axios from '../../AxiosGlobal';
+import Loader from '../../UI/Loader/Loader';
 
 import createInlineToolbarPlugin, {Separator}  from 'draft-js-inline-toolbar-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
@@ -44,7 +45,7 @@ const plugins = [inlineToolbarPlugin, emojiPlugin, hashtagPlugin];
 class EditThought extends Component {
   constructor(props) {
     super(props)
-    this.state = { editorState: EditorState.createEmpty(), title: '', id: this.props.match.params.id };
+    this.state = { editorState: EditorState.createEmpty(), title: '', id: this.props.match.params.id, loading: true };
 
     this.saveThought = this.saveThought.bind(this);
     this.draftThought = this.draftThought.bind(this);
@@ -59,7 +60,8 @@ class EditThought extends Component {
       .then((res) => {
         this.setState({
           editorState:  EditorState.createWithContent(convertFromRaw(JSON.parse(res.data.description))),
-          title: res.data.title
+          title: res.data.title,
+          loading: false
         })
       })
       .catch((err) => {
@@ -116,6 +118,10 @@ class EditThought extends Component {
   };
 
   render() {
+    if(this.state.loading) {
+      return <Loader />
+    }
+
     return (
       <div className={EditorStyles.Root} >
         <form onSubmit={this.saveThought}>
@@ -144,7 +150,8 @@ class EditThought extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    thought: state.newThought
+    thought: state.newThought,
+    entities: state.entities
   }
 };
 

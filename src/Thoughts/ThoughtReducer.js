@@ -82,7 +82,7 @@ const thoughtsReducer = (state=initialState, action) => {
         messages: [...state.messages, editSuccessMessage],
         thoughts: thoughts,
         success: true,
-        loading: false,
+        loading: true,
       }
     case actionTypes.DELETE_THOUGHT_SUCCESS:
       let deleteSuccessMessage = { message: action.type, time: new Date() }

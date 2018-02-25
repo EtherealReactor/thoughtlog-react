@@ -3,7 +3,7 @@ import Styles from './ThoughtListItem.css';
 import Moment from 'react-moment';
 import Editor from 'draft-js-plugins-editor';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
-import { EditorState, convertFromRaw } from 'draft-js';
+import { EditorState, convertFromRaw, ContentState } from 'draft-js';
 import * as FontAwesome from 'react-icons/lib/fa';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
 
@@ -18,12 +18,18 @@ class ThoughtListItem extends React.Component {
   };
 
   componentWillMount() {
-    let editorState = this.props.thought.description !== undefined ?
-      EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.thought.description))) :
-      EditorState.createEmpty()
-    this.setState({
-      editorState:  editorState
-    })
+    let description = this.props.thought.description;
+    let editorState = '';
+
+    try {
+      editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(description)))
+    } catch (e) {
+      editorState = description.length > 0 ? EditorState.createWithContent(ContentState.createFromText(description)) : EditorState.createEmpty()
+    } finally {
+      this.setState({
+        editorState:  editorState
+      })
+    }
   }
   
   onChange = (editorState) => {

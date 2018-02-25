@@ -60,11 +60,13 @@ const ThoughtListHoc = (props) => {
             </div>
           }
     
-          <div className={Styles.Container} ref={node => { this.node = node }}>
-            <ul className={Styles.List}>
-              {thoughts}
-            </ul>
-          </div>
+          { !this.props.entities.loading && 
+            <div className={Styles.Container} ref={node => { this.node = node }}>
+              <ul className={Styles.List}>
+                {thoughts}
+              </ul>
+            </div>
+          }
         </div>
       );
     };
