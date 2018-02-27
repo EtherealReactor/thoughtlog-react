@@ -17,6 +17,7 @@ const thoughtsReducer = (state=initialState, action) => {
     case actionTypes.THOUGHT_LIST_FETCH_INIT:
     case actionTypes.NEW_THOUGHT_INIT:
     case actionTypes.EDIT_THOUGHT_INIT:
+    case actionTypes.LOAD_MORE_INIT:
       let initMessage = { message: action.type, time: new Date() }
       return {
         ...state,
@@ -42,6 +43,7 @@ const thoughtsReducer = (state=initialState, action) => {
     case actionTypes.THOUGHT_LIST_FETCH_FAILED:
     case actionTypes.EDIT_THOUGHT_FAILED:
     case actionTypes.DELETE_THOUGHT_FAILED:
+    case actionTypes.LOAD_MORE_FAILED:
       let failMessage = { message: action.type, time: new Date() }
       console.log('thoughts fetch errors', action.errors);
       return {
@@ -56,7 +58,7 @@ const thoughtsReducer = (state=initialState, action) => {
       return {
         ...state,
         messages: [...state.messages, successMessage],
-        thoughts: [...action.thoughts],
+        thoughts: action.thoughts,
         success: true,
         loading: false,
         current_page: action.current_page,
@@ -101,6 +103,17 @@ const thoughtsReducer = (state=initialState, action) => {
         show_confirm: false,
         current_thought_id: ''
       }
+    case actionTypes.LOAD_MORE_SUCCESS:
+      let loadMessage = { message: action.type, time: new Date() }
+        return {
+          ...state,
+          messages: [...state.messages, loadMessage],
+          thoughts: state.thoughts.concat(action.thoughts),
+          success: true,
+          loading: false,
+          current_page: action.current_page,
+          total_pages: action.total_pages
+        }
     default:
       return state;
   }

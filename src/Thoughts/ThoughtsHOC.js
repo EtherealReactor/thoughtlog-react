@@ -7,12 +7,29 @@ import Loader from '../UI/Loader/Loader';
 import { withRouter } from 'react-router-dom';
 import Confirm from '../UI/Confirm/Confirm';
 import { deleteThoughtInit, deleteThoughtCancel, deleteThoughtConfirm } from './DeleteThought/DeleteThoughtAction';
+import { loadMoreInit } from './LoadMoreThoughts/LoadMoreThoughtsAction'; 
 
 const ThoughtListHoc = (props) => {
   class ThoughtList extends React.Component {
+    
     componentDidMount() {
       this.props.fetchThoughtsList(props.status);
+      window.addEventListener('scroll', this.onScroll, false);
+     }
+
+    componentWillUnmount() {
+      window.removeEventListener('scroll', this.onScroll, false);
     }
+     
+     onScroll = () => {
+       let { current_page, total_pages } = this.props.entities
+       // console.log('total_pages', total_pages);
+       // console.log('current_page', current_page);
+        if (
+          (window.innerHeight + window.scrollY) >= (document.body.offsetHeight + 160) && total_pages > current_page) {
+          this.props.loadMoreInit(props.status, current_page + 1)
+        }
+      }
 
     handleEdit = (id) => {
       this.props.history.push(`/thoughts/${id}/edit`)
@@ -53,7 +70,7 @@ const ThoughtListHoc = (props) => {
       }
 
       return (
-        <div>
+        <React.Fragment>
           { this.props.entities.show_confirm &&
             <div className={Styles.Confirm} >
               <Confirm handleConfirm={this.handleConfirm} handleCancel={this.handleCancel} />
@@ -67,7 +84,7 @@ const ThoughtListHoc = (props) => {
               </ul>
             </div>
           }
-        </div>
+        </React.Fragment>
       );
     };
   };
@@ -83,7 +100,8 @@ const ThoughtListHoc = (props) => {
       fetchThoughtsList: (status) => dispatch(thoughtListFetchInit(status)),
       deleteThoughtCancel: () => dispatch(deleteThoughtCancel()),
       deleteThoughtInit: (id) => dispatch(deleteThoughtInit(id)),
-      deleteThoughtConfirm: (id) => dispatch(deleteThoughtConfirm(id))
+      deleteThoughtConfirm: (id) => dispatch(deleteThoughtConfirm(id)),
+      loadMoreInit: (status, page) => dispatch(loadMoreInit(status, page))
     }
   }
 
