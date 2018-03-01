@@ -1,0 +1,35 @@
+.Container {
+  width: 50%;
+}
+
+.Loader {
+  font-size: 1.3rem;
+  animation-name: rotate;
+  animation-duration: 2s; 
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.Actions {
+  margin-left: 4rem;
+}
+
+.Done {
+  fill: green;
+  font-size: 1.5rem;
+}
+
+.Attachment {
+  display: inline-block;
+  padding: .2rem;
+  color: grey;
+  box-shadow: 0 0 4px grey;
+  font-size: 1rem;
+  margin: 0;
+  margin-top: .5rem;
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}

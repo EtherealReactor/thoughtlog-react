@@ -16,6 +16,7 @@ import signinReducer from './User/Signin/SigninReducer';
 import signupReducer from './User/Signup/SignupReducer';
 import thoughtsReducer from './Thoughts/ThoughtReducer';
 import notificationReducer from './Notifications/NotificationReducer';
+import attachmentReducer from './Attachments/AttachmentReducer';
 
 const history = createHistory();
 
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   signin: signinReducer,
   entities: thoughtsReducer,
   notification: notificationReducer,
-  router: routerReducer
+  router: routerReducer,
+  attachments: attachmentReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

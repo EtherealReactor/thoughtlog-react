@@ -3,9 +3,12 @@ import Editor from 'draft-js-plugins-editor';
 import { EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { newThoughtInit } from './NewThoughtActions';
 import { connect } from 'react-redux';
-
+import Attachment from '../../Attachments/New/New';
+import { newAttachmentInit } from '../../Attachments/New/NewActions';
+import Attachments from '../../Attachments/Index/index';
 
 import createInlineToolbarPlugin, {Separator}  from 'draft-js-inline-toolbar-plugin';
+import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import { ItalicButton, BoldButton, UnderlineButton, CodeButton, OrderedListButton, UnorderedListButton, HeadlineOneButton, HeadlineTwoButton, HeadlineThreeButton } from 'draft-js-buttons';
@@ -17,6 +20,17 @@ import FormStyles from '../../UI/CSS/Forms.css';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-side-toolbar-plugin/lib/plugin.css';
+
+import toolbarStyles from '../../UI/CSS/EditorSideToolbar/ToolbarStyles.css';
+import buttonStyles from '../../UI/CSS/EditorSideToolbar/ButtonStyles.css';
+import blockTypeSelectStyles from '../../UI/CSS/EditorSideToolbar/BlockTypeSelectStyles.css';
+
+const sideToolbarPlugin = createSideToolbarPlugin({
+  theme: { buttonStyles, toolbarStyles, blockTypeSelectStyles },
+});
+
+const { SideToolbar } = sideToolbarPlugin;
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   structure: [
@@ -32,13 +46,13 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     HeadlineThreeButton,
   ]
 });
-const { InlineToolbar } = inlineToolbarPlugin;
+// const { InlineToolbar } = inlineToolbarPlugin;
 
 const emojiPlugin = createEmojiPlugin();
-const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const { EmojiSuggestions } = emojiPlugin;
 const hashtagPlugin = createHashtagPlugin();
 
-const plugins = [inlineToolbarPlugin, emojiPlugin, hashtagPlugin];
+const plugins = [sideToolbarPlugin, inlineToolbarPlugin, emojiPlugin, hashtagPlugin];
 
 
 
@@ -76,6 +90,15 @@ class NewThought extends Component {
     };
     return 'not-handled';
   };
+  
+  onDrop = (files) => {
+    console.log('after drop');
+    files.forEach(file => {
+      let form = new FormData();
+      form.append('attachment', file);
+      this.props.newAttachmentInit(file.name, form)
+    });
+  }
 
   saveThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
@@ -100,6 +123,7 @@ class NewThought extends Component {
     }
     this.props.thoughtInit(params)
   };
+  
 
   render() {
     return (
@@ -115,8 +139,14 @@ class NewThought extends Component {
               placeholder="The world is too small to understand your brain. Please do write in detail."
               ref={(element) => { this.editor = element; }}
             />
-            <InlineToolbar />
+            <SideToolbar />
             <EmojiSuggestions />
+          </div>
+          <div>
+            <Attachments />
+          </div>
+          <div>
+            <Attachment onDrop={this.onDrop} />
           </div>
           <div>
             <button className={FormStyles.formButton} type="button" onClick={this.saveThought}>Publish</button>
@@ -127,10 +157,17 @@ class NewThought extends Component {
     );
   };
 };
+// 
+// const mapStateToProps = (state) => {
+//   return {
+//     attachments: state.attachments.records
+//   }
+// }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    thoughtInit: (params) => dispatch(newThoughtInit(params))
+    thoughtInit: (params) => dispatch(newThoughtInit(params)),
+    newAttachmentInit: (name, form) => dispatch(newAttachmentInit(name, form))
   }
 }
 

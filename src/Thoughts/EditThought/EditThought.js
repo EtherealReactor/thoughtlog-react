@@ -8,6 +8,8 @@ import { editThoughtInit } from './EditThoughtActions';
 import FormStyles from '../../UI/CSS/Forms.css';
 import axios from '../../AxiosGlobal';
 import Loader from '../../UI/Loader/Loader';
+import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
+
 
 import createInlineToolbarPlugin, {Separator}  from 'draft-js-inline-toolbar-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
@@ -17,6 +19,17 @@ import { ItalicButton, BoldButton, UnderlineButton, CodeButton, OrderedListButto
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-side-toolbar-plugin/lib/plugin.css';
+
+import toolbarStyles from '../../UI/CSS/EditorSideToolbar/ToolbarStyles.css';
+import buttonStyles from '../../UI/CSS/EditorSideToolbar/ButtonStyles.css';
+import blockTypeSelectStyles from '../../UI/CSS/EditorSideToolbar/BlockTypeSelectStyles.css';
+
+const sideToolbarPlugin = createSideToolbarPlugin({
+  theme: { buttonStyles, toolbarStyles, blockTypeSelectStyles }
+});
+
+const { SideToolbar } = sideToolbarPlugin;
 
 const inlineToolbarPlugin = createInlineToolbarPlugin({
   structure: [
@@ -32,10 +45,10 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
     HeadlineThreeButton,
   ]
 });
-const { InlineToolbar } = inlineToolbarPlugin;
+// const { InlineToolbar } = inlineToolbarPlugin;
 
 const emojiPlugin = createEmojiPlugin();
-const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const { EmojiSuggestions } = emojiPlugin;
 const hashtagPlugin = createHashtagPlugin();
 
 
@@ -135,7 +148,7 @@ class EditThought extends Component {
               placeholder="The world is too small to understand your brain. Please do write in detail."
               ref={(element) => { this.editor = element; }}
             />
-            <InlineToolbar />
+            <SideToolbar />
             <EmojiSuggestions />
           </div>
           <div>
