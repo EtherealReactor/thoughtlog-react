@@ -22,7 +22,6 @@ function *delteThoughtWorker(action) {
 }
 
 function *deleteThoughtWatcher() {
-  console.log('saga registered delte');
   yield takeLatest(actionTypes.DELETE_THOUGHT_CONFIRM, delteThoughtWorker);
 };
 

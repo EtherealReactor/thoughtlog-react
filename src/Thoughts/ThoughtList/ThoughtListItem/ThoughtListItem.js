@@ -6,6 +6,7 @@ import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import { EditorState, convertFromRaw, ContentState } from 'draft-js';
 import * as FontAwesome from 'react-icons/lib/fa';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
+import Show from '../../../Attachments/Show/Show';
 
 const hashtagPlugin = createHashtagPlugin();
 const plugins = [hashtagPlugin];
@@ -24,7 +25,7 @@ class ThoughtListItem extends React.Component {
     try {
       editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(description)))
     } catch (e) {
-      editorState = description.length > 0 ? EditorState.createWithContent(ContentState.createFromText(description)) : EditorState.createEmpty()
+      editorState = description && description.length > 0 ? EditorState.createWithContent(ContentState.createFromText(description)) : EditorState.createEmpty()
     } finally {
       this.setState({
         editorState:  editorState
@@ -34,6 +35,12 @@ class ThoughtListItem extends React.Component {
   
   onChange = (editorState) => {
     this.setState({editorState})
+  }
+  
+  showAttachments = (attachments) => {
+    return attachments.map((file) => {
+      return <Show name={file.name} s3_url={file.s3_url} key={file._id} hide_status />
+    })
   }
   
   render() {
@@ -50,6 +57,9 @@ class ThoughtListItem extends React.Component {
               plugins={plugins}
               readOnly={true}
             />
+          </div>
+          <div>
+            {this.props.thought.attachments && this.showAttachments(this.props.thought.attachments)}
           </div>
           <div className={Styles.Actions}>
             <FontAwesome.FaPencil className={Styles.ActionIcon} onClick={this.props.onEditClick}/>

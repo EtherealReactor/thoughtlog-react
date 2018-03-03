@@ -18,9 +18,23 @@ function *attachmentWorker(action) {
   }
 }
 
+// function *attachmentWorker(token, form, name) {
+//   try {
+//     let res = yield call(upload, token, form)
+//     yield put(newAttachmentSuccess(name, res.data))
+//   } catch (e) {
+//     yield put(newAttachmentFailed(e.response.data))
+//   }
+// }
+
 
 function *attachmentWatcher() {
   yield takeEvery(actionTypes.NEW_ATTACHMENT_INIT, attachmentWorker)
+  // while(true) {
+  //   let token = JSON.parse(localStorage.getItem('token'));
+  //   const {name, form} = yield take(actionTypes.NEW_ATTACHMENT_INIT)
+  //   yield fork(attachmentWorker, token, form, name)
+  // }
 }
 
 export default attachmentWatcher;

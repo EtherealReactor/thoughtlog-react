@@ -92,12 +92,23 @@ class NewThought extends Component {
   };
   
   onDrop = (files) => {
-    console.log('after drop');
     files.forEach(file => {
       let form = new FormData();
       form.append('attachment', file);
       this.props.newAttachmentInit(file.name, form)
     });
+  }
+  
+  attachmentIds = (attachments) => {
+    let attachmentIds = [];
+    let attachmentNames = Object.keys(attachments);
+    
+    if(attachmentNames.length !== 0) {
+      for (let key of attachmentNames) {
+        attachmentIds.push(attachments[key].data._id)
+      }
+    }
+    return attachmentIds;
   }
 
   saveThought = (event) => {
@@ -107,19 +118,22 @@ class NewThought extends Component {
       title: this.state.title,
       description: description,
       status: 'published',
-      category: 'self'
+      category: 'self',
+      attachments: this.attachmentIds(this.props.attachments)
     }
     this.props.thoughtInit(params)
   };
 
   draftThought = (event) => {
     let description = JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()));
+    console.log('ids', this.attachmentIds(this.props.attachments));
     event.preventDefault();
     let params = {
       title: this.state.title,
       description: description,
       status: 'drafted',
-      category: 'self'
+      category: 'self',
+      attachments: this.attachmentIds(this.props.attachments)
     }
     this.props.thoughtInit(params)
   };
@@ -143,7 +157,7 @@ class NewThought extends Component {
             <EmojiSuggestions />
           </div>
           <div>
-            <Attachments />
+            {this.props.attachments && <Attachments attachments={this.props.attachments}/>}
           </div>
           <div>
             <Attachment onDrop={this.onDrop} />
@@ -157,12 +171,12 @@ class NewThought extends Component {
     );
   };
 };
-// 
-// const mapStateToProps = (state) => {
-//   return {
-//     attachments: state.attachments.records
-//   }
-// }
+
+const mapStateToProps = (state) => {
+  return {
+    attachments: state.attachments.records
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -172,4 +186,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(null, mapDispatchToProps)(NewThought);
+export default connect(mapStateToProps, mapDispatchToProps)(NewThought);
